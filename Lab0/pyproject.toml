@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "softsec-calculator"
+version = "0.1.0"
+description = "SOFTSEC - Lab 1: Calculator API"
+requires-python = ">=3.11"
+dependencies = [
+    "flask>=3.0,<4.0",
+]
+
+# Dependencies that are not necessary for running the project.
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+# Tells hatchling that the "src" directory is the package to build/install.
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Ensures "from src.my_file import ..." resolves when running plain
+# `pytest` from the project root, without requiring an editable install.
+pythonpath = ["."]
