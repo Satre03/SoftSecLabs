@@ -1,3 +1,5 @@
+
+from flask import Flask, request, jsonify
 import re
 """
 MOCK calculator implementation.
@@ -23,7 +25,26 @@ class Calculator:
             raise ValueError("Invalid expression")
 
 
+app = Flask(__name__)
+calculator = Calculator()
+
+
+@app.route("/hello")
+def hello():
+    return jsonify({"message": "Hello, World!"})
+
+
+@app.route("/calc", methods=["POST"])
+def calculate():
+    data = request.get_json()
+    expression = data.get("expression", "")
+
+    try:
+        result = calculator.calc(expression)
+        return jsonify({"result": result})
+    except ValueError:
+        return jsonify({"error": "Invalid expression"}), 400
+
+
 if __name__ == "__main__":
-    calc = Calculator()
-    print(calc.calc("2 + 3"))       # -> "5"
-    print(calc.calc("(2 + 3) * 4")) # -> "20"
+    app.run(host="0.0.0.0", port=5000)
