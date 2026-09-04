@@ -1,3 +1,4 @@
+import re
 """
 MOCK calculator implementation.
 
@@ -18,8 +19,8 @@ interface.
 
 class Calculator:
     def calc(self, expression: str) -> str:
-        result = eval(expression)
-        return str(result)
+        if not re.fullmatch(r"[0-9+\-*/(). ]+", expression):
+            raise ValueError("Invalid expression")
 
 
 if __name__ == "__main__":
