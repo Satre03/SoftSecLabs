@@ -8,4 +8,4 @@ COPY src ./src
 
 EXPOSE 5000
 
-CMD ["python", "src/api.py"]
+CMD ["python", "src/calculator.py"]
